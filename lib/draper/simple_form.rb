@@ -1,3 +1,5 @@
+require 'active_support/concern'		
+
 module Draper
   module SimpleFormBuilderExtension
     extend ActiveSupport::Concern
@@ -22,3 +24,4 @@ module Draper
     end
   end
 end
+::SimpleForm::FormBuilder.send :include, Draper::SimpleFormBuilderExtension
