@@ -16,8 +16,9 @@ module Draper
         conditions = reflection.options[:conditions]
         conditions = conditions.call if conditions.respond_to?(:call)
         relation = reflection.klass.where(conditions).order(reflection.options[:order])
-        relation = relation.decorate if relation.respond_to?(:decorate)
-        relation
+        if relation.respond_to?(:decorate) && relation.decorator_class?
+          relation = relation.decorate
+        end
       }
       association_without_decoration association, options, &block
     end
